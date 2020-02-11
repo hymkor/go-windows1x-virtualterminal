@@ -40,12 +40,12 @@ func changeConsoleMode(console windows.Handle, ops ...ModeOp) (func(), error) {
 	return restore, err
 }
 
-const enableVirtualTerminalProcessing uint32 = 0x0004
-
 func enableStdoutVirtualTerminalProcessing() (func(), error) {
-	return changeConsoleMode(windows.Stdout, ModeSet(enableVirtualTerminalProcessing))
+	return changeConsoleMode(windows.Stdout,
+		ModeSet(windows.ENABLE_VIRTUAL_TERMINAL_PROCESSING))
 }
 
 func enableStderrVirtualTerminalProcessing() (func(), error) {
-	return changeConsoleMode(windows.Stderr, ModeSet(enableVirtualTerminalProcessing))
+	return changeConsoleMode(windows.Stderr,
+		ModeSet(windows.ENABLE_VIRTUAL_TERMINAL_PROCESSING))
 }
