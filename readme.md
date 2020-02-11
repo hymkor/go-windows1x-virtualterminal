@@ -3,9 +3,7 @@ go-windows10-ansi
 
 This package enables Windows10's escape sequences.
 
-```
-// +build example
-
+```go
 package main
 
 import (
