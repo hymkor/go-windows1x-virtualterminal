@@ -4,6 +4,7 @@ package ansi
 
 import (
 	"golang.org/x/sys/windows"
+	"syscall"
 )
 
 type ModeOp interface {
@@ -40,12 +41,32 @@ func changeConsoleMode(console windows.Handle, ops ...ModeOp) (func(), error) {
 	return restore, err
 }
 
+type ErrNotSupportVirtualTerminalProcessing struct {
+	err error
+}
+
+func (e ErrNotSupportVirtualTerminalProcessing) Error() string {
+	return "Not support Virtual-Terminal-Processing"
+}
+
+func (e ErrNotSupportVirtualTerminalProcessing) Unwrap() error {
+	return e.err
+}
+
+const _PARAMETER_IS_INCORRECT = 87
+
+func enableVirtualTerminalProcessing(h windows.Handle) (func(), error) {
+	f, err := changeConsoleMode(h, ModeSet(windows.ENABLE_VIRTUAL_TERMINAL_PROCESSING))
+	if errno, ok := err.(syscall.Errno); ok && errno == _PARAMETER_IS_INCORRECT {
+		return f, &ErrNotSupportVirtualTerminalProcessing{err: errno}
+	}
+	return f, err
+}
+
 func enableStdoutVirtualTerminalProcessing() (func(), error) {
-	return changeConsoleMode(windows.Stdout,
-		ModeSet(windows.ENABLE_VIRTUAL_TERMINAL_PROCESSING))
+	return enableVirtualTerminalProcessing(windows.Stdout)
 }
 
 func enableStderrVirtualTerminalProcessing() (func(), error) {
-	return changeConsoleMode(windows.Stderr,
-		ModeSet(windows.ENABLE_VIRTUAL_TERMINAL_PROCESSING))
+	return enableVirtualTerminalProcessing(windows.Stderr)
 }
