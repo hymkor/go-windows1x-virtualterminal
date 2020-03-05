@@ -18,7 +18,13 @@ func main() {
 
     closer, err := ansi.EnableStdoutVirtualTerminalProcessing()
     if err != nil {
-        fmt.Fprintln(os.Stderr, err.Error())
+        if _, ok := err.(*ansi.ErrNotWindows); ok {
+            fmt.Fprintln(os.Stderr, "This machine is not Windows.")
+        } else if _, ok := err.(*ansi.ErrNotSupportVirtualTerminalProcessing); ok {
+            fmt.Fprintln(os.Stderr, "This machine is Windows 8.1 or Windows Server")
+        } else {
+            fmt.Fprintln(os.Stderr, err.Error())
+        }
         os.Exit(1)
     }
 
