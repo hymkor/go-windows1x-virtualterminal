@@ -12,7 +12,7 @@ func (e ErrNotSupportVirtualTerminalProcessing) Unwrap() error {
 	return e.err
 }
 
-func IsVirtualTerminalProcessingNotSupported(err error) bool {
+func IsNotSupported(err error) bool {
 	_, ok := err.(*ErrNotSupportVirtualTerminalProcessing)
 	return ok
 }
@@ -28,12 +28,22 @@ func IsNotWindows(err error) bool {
 	return ok
 }
 
-// EnableStdoutVirtualTerminalProcessing enables Windows10's native ESCAPE SEQUENCE support on STDOUT
+// EnableStdout enables Windows10's native ESCAPE SEQUENCE support on STDOUT
+func EnableStdout() (func(), error) {
+	return enableStdoutVirtualTerminalProcessing()
+}
+
+// EnableStdoutVirtualTerminalProcessing is same with EnableStdout for compatible.
 func EnableStdoutVirtualTerminalProcessing() (func(), error) {
 	return enableStdoutVirtualTerminalProcessing()
 }
 
-// EnableStderrVirtualTerminalProcessing enables Windows10's native ESCAPE SEQUENCE support on STDERR
+// EnableStderr enables Windows10's native ESCAPE SEQUENCE support on STDERR
+func EnableStderr() (func(), error) {
+	return enableStderrVirtualTerminalProcessing()
+}
+
+// EnableStderrVirtualTerminalProcessing is same with EnableStderr for compatible
 func EnableStderrVirtualTerminalProcessing() (func(), error) {
 	return enableStderrVirtualTerminalProcessing()
 }

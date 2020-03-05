@@ -10,11 +10,11 @@ import (
 func main() {
 	fmt.Println("Defaut-Mode: \x1B[32;1m!!!!\x1B[0m\n")
 
-	closer, err := ansi.EnableStdoutVirtualTerminalProcessing()
+	closer, err := ansi.EnableStdout()
 	if err != nil {
 		if ansi.IsNotWindows(err) {
 			fmt.Fprintln(os.Stderr, "This machine is not Windows.")
-		} else if ansi.IsVirtualTerminalProcessingNotSupported(err) {
+		} else if ansi.IsNotSupported(err) {
 			fmt.Fprintln(os.Stderr, "This machine is Windows 8.1 or Windows Server")
 		} else {
 			fmt.Fprintln(os.Stderr, err.Error())
