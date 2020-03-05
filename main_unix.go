@@ -3,9 +3,9 @@
 package ansi
 
 func enableStdoutVirtualTerminalProcessing() (func(), error) {
-	return func() {}, nil
+	return func() {}, &ErrNotWindows{}
 }
 
 func enableStderrVirtualTerminalProcessing() (func(), error) {
-	return func() {}, nil
+	return func() {}, &ErrNotWindows{}
 }

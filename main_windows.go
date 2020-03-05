@@ -41,18 +41,6 @@ func changeConsoleMode(console windows.Handle, ops ...ModeOp) (func(), error) {
 	return restore, err
 }
 
-type ErrNotSupportVirtualTerminalProcessing struct {
-	err error
-}
-
-func (e ErrNotSupportVirtualTerminalProcessing) Error() string {
-	return "Not support Virtual-Terminal-Processing"
-}
-
-func (e ErrNotSupportVirtualTerminalProcessing) Unwrap() error {
-	return e.err
-}
-
 const _PARAMETER_IS_INCORRECT = 87
 
 func enableVirtualTerminalProcessing(h windows.Handle) (func(), error) {
