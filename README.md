@@ -3,14 +3,14 @@ go-windows10-ansi
 
 This package enables Windows10's escape sequences.
 
-```go
+```example.go
 package main
 
 import (
     "fmt"
     "os"
 
-    "github.com/zetamatta/go-windows10-ansi"
+    "github.com/hymkor/go-windows10-ansi"
 )
 
 func main() {
