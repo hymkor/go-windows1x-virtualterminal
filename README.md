@@ -36,4 +36,4 @@ func main() {
 }
 ```
 
-<img src="example.png" />
+![example.png](./example.png)
