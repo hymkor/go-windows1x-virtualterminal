@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/zetamatta/go-windows10-ansi"
+	"github.com/hymkor/go-windows10-ansi"
 )
 
 func main() {
