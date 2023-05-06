@@ -1,4 +1,4 @@
-module github.com/hymkor/go-windows10-ansi
+module github.com/hymkor/go-windows1x-virtualterminal
 
 go 1.20
 

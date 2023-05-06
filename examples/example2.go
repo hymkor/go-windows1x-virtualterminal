@@ -7,7 +7,7 @@ import (
 
 	"golang.org/x/term"
 
-	"github.com/hymkor/go-windows10-ansi"
+	"github.com/hymkor/go-windows1x-virtualterminal"
 )
 
 func mains() error {
@@ -17,7 +17,7 @@ func mains() error {
 	}
 	defer term.Restore(int(os.Stdin.Fd()), oldState)
 
-	disable, err := ansi.EnableStdin()
+	disable, err := virtualterminal.EnableStdin()
 	if err != nil {
 		return err
 	}

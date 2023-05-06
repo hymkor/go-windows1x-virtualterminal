@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"os"
 
-	virtualterminal "github.com/hymkor/go-windows10-ansi"
+	"github.com/hymkor/go-windows1x-virtualterminal"
 )
 
 func mains() error {
