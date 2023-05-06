@@ -65,22 +65,22 @@ import (
     "github.com/hymkor/go-windows1x-virtualterminal"
 )
 
-func mains() error {
+func readLine() (string, error) {
     oldState, err := term.MakeRaw(int(os.Stdin.Fd()))
     if err != nil {
-        return err
+        return "", err
     }
     defer term.Restore(int(os.Stdin.Fd()), oldState)
 
     disableIn, err := virtualterminal.EnableStdin()
     if err != nil {
-        return err
+        return "", err
     }
     defer disableIn()
 
     disableOut, err := virtualterminal.EnableStdout()
     if err != nil {
-        return err
+        return "", err
     }
     defer disableOut()
 
@@ -89,19 +89,15 @@ func mains() error {
         io.Writer
     }{os.Stdin, os.Stdout}, "> ")
 
-    line, err := terminal.ReadLine()
-    if err != nil {
-        return err
-    }
-    fmt.Println("Line:", line)
-    return nil
+    return terminal.ReadLine()
 }
 
 func main() {
-    if err := mains(); err != nil {
+    line, err := readLine()
+    if err != nil {
         fmt.Fprintln(os.Stderr, err.Error())
         os.Exit(1)
     }
-
+    fmt.Println("Line:", line)
 }
 ```
