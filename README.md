@@ -47,7 +47,7 @@ func main() {
 }
 ```
 
-![example.png](./example.png)
+![example.png](examples/example.png)
 
  Enabling the input of keyboard arrow keys
 ------------------------------------------
