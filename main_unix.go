@@ -3,14 +3,14 @@
 
 package ansi
 
-func enableVirtualTerminalInput() (func(), error) {
+func enableStdin() (func(), error) {
 	return func() {}, nil
 }
 
-func enableStdoutVirtualTerminalProcessing() (func(), error) {
+func enableStdout() (func(), error) {
 	return func() {}, nil
 }
 
-func enableStderrVirtualTerminalProcessing() (func(), error) {
+func enableStderr() (func(), error) {
 	return func() {}, nil
 }

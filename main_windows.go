@@ -24,14 +24,14 @@ func changeConsoleMode(console windows.Handle, bits uint32) (func(), error) {
 	return func() { windows.SetConsoleMode(console, mode) }, err
 }
 
-func enableVirtualTerminalInput() (func(), error) {
+func enableStdin() (func(), error) {
 	return changeConsoleMode(windows.Stdin, windows.ENABLE_VIRTUAL_TERMINAL_INPUT)
 }
 
-func enableStdoutVirtualTerminalProcessing() (func(), error) {
+func enableStdout() (func(), error) {
 	return changeConsoleMode(windows.Stdout, windows.ENABLE_VIRTUAL_TERMINAL_PROCESSING)
 }
 
-func enableStderrVirtualTerminalProcessing() (func(), error) {
+func enableStderr() (func(), error) {
 	return changeConsoleMode(windows.Stderr, windows.ENABLE_VIRTUAL_TERMINAL_PROCESSING)
 }
