@@ -48,7 +48,7 @@ const _PARAMETER_IS_INCORRECT = 87
 func enableVirtualTerminalInput() (func(), error) {
 	f, err := changeConsoleMode(windows.Stdin, ModeSet(windows.ENABLE_VIRTUAL_TERMINAL_INPUT))
 	if errno, ok := err.(syscall.Errno); ok && errno == _PARAMETER_IS_INCORRECT {
-		return f, &ErrNotSupportVirtualTerminalInput{err: errno}
+		return f, ErrNotSupported
 	}
 	return f, err
 }
@@ -56,7 +56,7 @@ func enableVirtualTerminalInput() (func(), error) {
 func enableVirtualTerminalProcessing(h windows.Handle) (func(), error) {
 	f, err := changeConsoleMode(h, ModeSet(windows.ENABLE_VIRTUAL_TERMINAL_PROCESSING))
 	if errno, ok := err.(syscall.Errno); ok && errno == _PARAMETER_IS_INCORRECT {
-		return f, &ErrNotSupportVirtualTerminalProcessing{err: errno}
+		return f, ErrNotSupported
 	}
 	return f, err
 }

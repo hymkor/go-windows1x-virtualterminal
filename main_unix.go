@@ -4,13 +4,13 @@
 package ansi
 
 func enableVirtualTerminalInput() (func(), error) {
-	return func() {}, &ErrNotWindows{}
+	return func() {}, nil
 }
 
 func enableStdoutVirtualTerminalProcessing() (func(), error) {
-	return func() {}, &ErrNotWindows{}
+	return func() {}, nil
 }
 
 func enableStderrVirtualTerminalProcessing() (func(), error) {
-	return func() {}, &ErrNotWindows{}
+	return func() {}, nil
 }
