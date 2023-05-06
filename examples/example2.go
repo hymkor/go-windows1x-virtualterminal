@@ -17,11 +17,17 @@ func mains() error {
 	}
 	defer term.Restore(int(os.Stdin.Fd()), oldState)
 
-	disable, err := virtualterminal.EnableStdin()
+	disableIn, err := virtualterminal.EnableStdin()
 	if err != nil {
 		return err
 	}
-	defer disable()
+	defer disableIn()
+
+	disableOut, err := virtualterminal.EnableStdout()
+	if err != nil {
+		return err
+	}
+	defer disableOut()
 
 	terminal := term.NewTerminal(&struct {
 		io.Reader
