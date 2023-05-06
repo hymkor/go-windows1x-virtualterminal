@@ -1,13 +1,17 @@
 go-windows1x-virtualterminal
 =============================
 
-This package enables Windows10 and 11's
+This package enables following features on Windows10 and Windows11:
 
-- Escape sequences for STDOUT and STDERR
-- Arrow-keys and others on `func (*Terminal) ReadLine` of [golang.org/x/term](https://pkg.go.dev/golang.org/x/term)
+- Enabling ANSI Escape Sequences for stdout and stderr
+- Enabling the input of keyboard arrow keys in the form of codes such as `ESC[A` to `ESC[D.` from stdin
 
-Enable escape sequences for STDOUT and STDERR
----------------------------------------
+If the platform is not Windows, the original terminal often supports escape sequences, so each function exits silently without causing an error.
+
+If the platform is Windows older than version 10, each function will return `virtualterminal.ErrNotSupported` because the command prompt does not support these features.
+
+Enabling ANSI Escape Sequences
+------------------------------
 
 ```examples/example.go
 package main
@@ -45,8 +49,8 @@ func main() {
 
 ![example.png](./example.png)
 
-Enable arrow keys and others at `func (*Terminal) ReadLine` of golang.org/x/term
--------------------------------------------------------------------------
+ Enabling the input of keyboard arrow keys
+------------------------------------------
 
 ```examples/example2.go
 package main
