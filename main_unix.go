@@ -3,6 +3,10 @@
 
 package ansi
 
+func enableVirtualTerminalInput() (func(), error) {
+	return func() {}, &ErrNotWindows{}
+}
+
 func enableStdoutVirtualTerminalProcessing() (func(), error) {
 	return func() {}, &ErrNotWindows{}
 }

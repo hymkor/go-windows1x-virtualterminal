@@ -4,8 +4,9 @@
 package ansi
 
 import (
-	"golang.org/x/sys/windows"
 	"syscall"
+
+	"golang.org/x/sys/windows"
 )
 
 type ModeOp interface {
@@ -43,6 +44,14 @@ func changeConsoleMode(console windows.Handle, ops ...ModeOp) (func(), error) {
 }
 
 const _PARAMETER_IS_INCORRECT = 87
+
+func enableVirtualTerminalInput() (func(), error) {
+	f, err := changeConsoleMode(windows.Stdin, ModeSet(windows.ENABLE_VIRTUAL_TERMINAL_INPUT))
+	if errno, ok := err.(syscall.Errno); ok && errno == _PARAMETER_IS_INCORRECT {
+		return f, &ErrNotSupportVirtualTerminalInput{err: errno}
+	}
+	return f, err
+}
 
 func enableVirtualTerminalProcessing(h windows.Handle) (func(), error) {
 	f, err := changeConsoleMode(h, ModeSet(windows.ENABLE_VIRTUAL_TERMINAL_PROCESSING))
