@@ -8,14 +8,14 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hymkor/go-windows10-ansi"
+	virtualterminal "github.com/hymkor/go-windows10-ansi"
 )
 
 func mains() error {
 	fmt.Println("Defaut-Mode: \x1B[32;1m!!!!\x1B[0m\n")
-	closer, err := ansi.EnableStdout()
+	closer, err := virtualterminal.EnableStdout()
 	if err != nil {
-		if errors.Is(err, ansi.ErrNotSupported) {
+		if errors.Is(err, virtualterminal.ErrNotSupported) {
 			return fmt.Errorf("This machine can not use ANSI-ESCAPE-SEQUENCE: %w", err)
 		}
 		return err

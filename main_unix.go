@@ -1,7 +1,7 @@
 //go:build !windows
 // +build !windows
 
-package ansi
+package virtualterminal
 
 func enableStdin() (func(), error) {
 	return func() {}, nil
