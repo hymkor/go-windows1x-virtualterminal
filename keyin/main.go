@@ -12,7 +12,7 @@ import (
 // It is the wrapper of `term.MakeRow(int(os.Stdin.Fd()))` and
 // `term.Restore(int(os.Stdin.Fd()),...)`.
 func Raw() (func(), error) {
-	conIn, err := ConInHandle()
+	conIn, err := ConInHandle.Values()
 	if err != nil {
 		return func() {}, fmt.Errorf("ConInHandle: %w", err)
 	}
