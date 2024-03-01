@@ -1,6 +1,7 @@
 package keyin
 
 import (
+	"fmt"
 	"os"
 
 	"golang.org/x/term"
@@ -11,11 +12,15 @@ import (
 // It is the wrapper of `term.MakeRow(int(os.Stdin.Fd()))` and
 // `term.Restore(int(os.Stdin.Fd()),...)`.
 func Raw() (func(), error) {
-	state, err := term.MakeRaw(int(os.Stdin.Fd()))
+	conIn, err := ConInHandle()
 	if err != nil {
-		return func() {}, err
+		return func() {}, fmt.Errorf("ConInHandle: %w", err)
 	}
-	return func() { term.Restore(int(os.Stdin.Fd()), state) }, nil
+	state, err := term.MakeRaw(int(conIn))
+	if err != nil {
+		return func() {}, fmt.Errorf("term.MakeRaw: %w", err)
+	}
+	return func() { term.Restore(int(conIn), state) }, nil
 }
 
 func Get() (string, error) {

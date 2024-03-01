@@ -15,7 +15,7 @@ func mains() error {
 	// EnableStdin should be called once in one application.
 	close1, err := virtualterminal.EnableStdin()
 	if err != nil {
-		return err
+		return fmt.Errorf("EnableStdin: %w", err)
 	}
 	defer close1()
 
@@ -23,7 +23,7 @@ func mains() error {
 	// It should be called once in one readline loop.
 	close2, err := keyin.Raw()
 	if err != nil {
-		return err
+		return fmt.Errorf("Raw: %w", err)
 	}
 	defer close2()
 
