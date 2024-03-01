@@ -1,6 +1,6 @@
 //go:build !windows
 
-package keyin
+package conin
 
 import (
 	"os"
@@ -8,13 +8,13 @@ import (
 	"github.com/hymkor/go-lazy"
 )
 
-var ConInHandle = lazy.Two[uintptr, error]{
+var Handle = lazy.Two[uintptr, error]{
 	New: func() (uintptr, error) {
 		return 1, nil
 	},
 }
 
-var ConIn = lazy.Two[*os.File, error]{
+var File = lazy.Two[*os.File, error]{
 	New: func() (*os.File, error) {
 		return os.Open("/dev/tty")
 	},

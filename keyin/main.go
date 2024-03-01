@@ -5,6 +5,8 @@ import (
 	"os"
 
 	"golang.org/x/term"
+
+	"github.com/hymkor/go-windows1x-virtualterminal/conin"
 )
 
 // Raw switches the terminal to the raw mode. To restore it the cooked mode,
@@ -12,7 +14,7 @@ import (
 // It is the wrapper of `term.MakeRow(int(os.Stdin.Fd()))` and
 // `term.Restore(int(os.Stdin.Fd()),...)`.
 func Raw() (func(), error) {
-	conIn, err := ConInHandle.Values()
+	conIn, err := conin.Handle.Values()
 	if err != nil {
 		return func() {}, fmt.Errorf("ConInHandle: %w", err)
 	}

@@ -1,4 +1,4 @@
-package keyin
+package conin
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"github.com/hymkor/go-lazy"
 )
 
-var ConInHandle = lazy.Two[uintptr, error]{
+var Handle = lazy.Two[uintptr, error]{
 	New: func() (uintptr, error) {
 		conin := []uint16{'C', 'O', 'N', 'I', 'N', '$', 0}
 		h, err := windows.CreateFile(
@@ -27,9 +27,9 @@ var ConInHandle = lazy.Two[uintptr, error]{
 	},
 }
 
-var ConIn = lazy.Two[*os.File, error]{
+var File = lazy.Two[*os.File, error]{
 	New: func() (*os.File, error) {
-		in, err := ConInHandle.Values()
+		in, err := Handle.Values()
 		if err != nil {
 			return nil, err
 		}
