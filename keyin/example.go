@@ -25,14 +25,13 @@ func mains() error {
 	if err != nil {
 		return fmt.Errorf("Raw: %w", err)
 	}
-	defer close2()
-
 	fmt.Print("Hit any key: ")
 
 	ch, err := keyin.Get()
 	if err != nil {
 		return err
 	}
+	close2()
 
 	ch = strings.ReplaceAll(ch, "\x1B", "<ESC>")
 	fmt.Println(ch)
