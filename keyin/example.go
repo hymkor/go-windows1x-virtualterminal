@@ -5,7 +5,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 
 	"github.com/hymkor/go-windows1x-virtualterminal"
 	"github.com/hymkor/go-windows1x-virtualterminal/keyin"
@@ -33,8 +32,14 @@ func mains() error {
 	}
 	close2()
 
-	ch = strings.ReplaceAll(ch, "\x1B", "<ESC>")
-	fmt.Println(ch)
+	for _, c := range ch {
+		if c < 0x20 {
+			fmt.Printf("<C-%c>", '@'+c)
+		} else {
+			fmt.Printf("%c", c)
+		}
+	}
+	fmt.Println()
 	return nil
 }
 
